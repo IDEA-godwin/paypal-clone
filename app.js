@@ -6,14 +6,13 @@ var logger = require('morgan');
 var db = require('./config/mongodb')
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
+// database connection
 db.on('open', () => {
   console.log("db connection available");
 })
-
 db.on('error', () => {
   console.log('db connection not available')
 })
@@ -29,7 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
